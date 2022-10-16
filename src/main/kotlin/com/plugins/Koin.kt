@@ -1,6 +1,7 @@
 package com.plugins
 import com.di.controllerModule
 import com.di.dataSourceModule
+import com.di.databaseModule
 import com.di.mainModule
 import io.ktor.server.application.*
 import org.koin.ktor.plugin.Koin
@@ -11,7 +12,8 @@ fun Application.configureKoin(){
         modules(
             mainModule,
             controllerModule,
-            dataSourceModule
+            dataSourceModule,
+            databaseModule
         )
     }
 }

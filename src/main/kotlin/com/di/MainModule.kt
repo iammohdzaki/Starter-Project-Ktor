@@ -1,5 +1,6 @@
 package com.di
 
+import com.base.ServerConfig
 import com.base.hashing.HashingService
 import com.base.hashing.HashingServiceImpl
 import com.base.jwt.service.TokenService
@@ -13,5 +14,9 @@ val mainModule = module {
 
     single<HashingService> {
         HashingServiceImpl()
+    }
+
+    single{
+        ServerConfig()
     }
 }

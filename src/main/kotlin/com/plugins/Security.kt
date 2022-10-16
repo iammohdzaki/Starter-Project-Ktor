@@ -4,18 +4,14 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.base.jwt.TokenConfig
+import com.base.ServerConfig
 import io.ktor.server.application.*
+import org.koin.ktor.ext.inject
 
 fun Application.configureSecurity() {
 
-    val config = TokenConfig(
-        issuer = environment.config.property("jwt.issuer").getString(),
-        audience = environment.config.property("jwt.issuer").getString(),
-        expiresIn = 365L * 1000L * 60L * 60L * 24L,
-        secret = System.getenv("JWT_SECRET")
-    )
-
+    val appConfig by inject<ServerConfig>()
+    val config = appConfig.tokenConfig
 
     authentication {
         jwt {

@@ -2,6 +2,7 @@ val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
 val koinVersion: String by project
+val kmongoVersion: String by project
 
 plugins {
     application
@@ -26,6 +27,10 @@ repositories {
 dependencies {
     //Generator
     implementation("com.github.iammohdzaki:Password-Generator:0.5")
+
+    // Mongo Database
+    implementation("org.litote.kmongo:kmongo:$kmongoVersion")
+    implementation("org.litote.kmongo:kmongo-coroutine:$kmongoVersion")
 
     // Koin Core Features - DI
     implementation("io.insert-koin:koin-ktor:$koinVersion")
