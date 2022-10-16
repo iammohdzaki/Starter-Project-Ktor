@@ -1,14 +1,7 @@
 {
   "configurations": [
     {
-      "name": "Clean Project",
-      "type": "gradle",
-      "tasks": [
-        "clean"
-      ]
-    },
-    {
-      "name": "Build Starter-Project-Ktor",
+      "name": "preBuild",
       "type": "gradle",
       "tasks": [
         ":classes"
@@ -20,11 +13,21 @@
       "debugJvm": "true"
     },
     {
-      "name": "Development",
+      "name": "Clean Project",
+      "type": "gradle",
+      "tasks": [
+        "clean"
+      ]
+    },
+    {
+      "name": "runDevServer - Fleet",
       "type": "jps-run",
       "dependsOn": [
-        "Build Starter-Project-Ktor"
+        "preBuild"
       ],
+      "environment": {
+        "JWT_SECRET": "TEST_SECREY_KEY"
+      },
       "mainClass": "com.ApplicationKt",
       "module": "Starter-Project-Ktor.main",
       "options": [
@@ -33,5 +36,22 @@
         "-Dsun.stderr.encoding=UTF-8"
       ]
     },
+    {
+      "name": "runLiveServer - Fleet",
+      "type": "jps-run",
+      "dependsOn": [
+        "preBuild"
+      ],
+      "environment": {
+        "JWT_SECRET": "TEST_SECREY_KEY"
+      },
+      "mainClass": "com.ApplicationKt",
+      "module": "Starter-Project-Ktor.main",
+      "options": [
+        "-Dfile.encoding=UTF-8",
+        "-Dsun.stdout.encoding=UTF-8",
+        "-Dsun.stderr.encoding=UTF-8"
+      ]
+    }
   ]
 }

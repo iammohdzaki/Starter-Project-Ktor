@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Development" type="JetRunConfigurationType">
+    <envs>
+      <env name="JWT_SECRET" value="TEST_SECREY_KEY" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="com.ApplicationKt" />
     <module name="Starter-Project-Ktor.main" />
     <shortenClasspath name="NONE" />
