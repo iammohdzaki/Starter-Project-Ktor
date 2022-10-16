@@ -100,6 +100,23 @@ class UserController(
     }
 
 
+    suspend fun getUserProfile(userId : String) : BaseResponse<Any>{
+        val user = userDataSource.getUser(userId)
+        return if(user != null){
+            val userResponse = user.toUserResponse()
+            SuccessResponse(
+                data = userResponse,
+                statusCode = HttpStatusCode.OK.value,
+                message = "Success"
+            )
+        }else{
+            FailureResponse(
+                statusCode = HttpStatusCode.BadRequest.value,
+                message = "Something went wrong!",
+            )
+        }
+    }
+
     private suspend fun checkIfUserExist(email: String) =
         userDataSource.checkIfUserExists(email) != null
 }

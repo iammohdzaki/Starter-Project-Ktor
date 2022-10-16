@@ -11,7 +11,7 @@ class HashingServiceImpl : HashingService {
         //Convert the byte range of salt to string using hex
         val saltAsHex = Hex.encodeHexString(salt)
         //Generate Hashed Password
-        val hash = DigestUtils.sha256Hex("$salt$value")
+        val hash = DigestUtils.sha256Hex("$saltAsHex$value")
         return SaltedHash(
             hash = hash,
             salt = saltAsHex
