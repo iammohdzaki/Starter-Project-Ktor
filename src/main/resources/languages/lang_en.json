@@ -1,0 +1,9 @@
+{
+  "invalid_token": "Invalid Access Token!",
+  "something_went_wrong": "Something went wrong!",
+  "user_created_successfully": "User Created Successfully!",
+  "user_already_exists": "User Already Exists!",
+  "invalid_email": "Invalid Email!",
+  "success": "Success",
+  "invalid_password": "Invalid Password!"
+}

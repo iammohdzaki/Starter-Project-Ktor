@@ -1,5 +1,6 @@
 package com
 
+import com.locale.Locale
 import io.ktor.server.application.*
 import com.plugins.*
 
@@ -8,6 +9,7 @@ fun main(args: Array<String>): Unit =
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
+    Locale.init()
     configureKoin()
     setupConfig()
     configureSecurity()

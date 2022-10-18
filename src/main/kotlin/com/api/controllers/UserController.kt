@@ -11,6 +11,9 @@ import com.base.jwt.TokenClaim
 import com.base.jwt.service.TokenService
 import com.data.User
 import com.data.request.UserRequest
+import com.locale.Locale
+import com.locale.Strings
+import com.utils.Keys
 import io.ktor.http.*
 
 class UserController(
@@ -20,7 +23,7 @@ class UserController(
     private val appConfig: ServerConfig
 ) {
 
-    suspend fun registerUser(userRequest: UserRequest): BaseResponse<Any> {
+    suspend fun registerUser(userRequest: UserRequest, language: String = "en"): BaseResponse<Any> {
         if (!checkIfUserExist(userRequest.email)) {
             val saltedHash = hashingService.generateSaltedHash(userRequest.password)
             val user = User(
@@ -35,7 +38,7 @@ class UserController(
                 val token = tokenService.generateToken(
                     appConfig.tokenConfig,
                     TokenClaim(
-                        name = "userId",
+                        name = Keys.USER_ID,
                         value = user.userId
                     )
                 )
@@ -44,23 +47,23 @@ class UserController(
                 SuccessResponse(
                     data = userResponse,
                     statusCode = HttpStatusCode.OK.value,
-                    message = "User Created Successfully!"
+                    message = Locale.getString(Strings.USER_CREATED_SUCCESSFULLY, language)
                 )
             } else {
                 FailureResponse(
                     statusCode = HttpStatusCode.BadRequest.value,
-                    message = "Something went wrong!",
+                    message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language),
                 )
             }
         } else {
             return FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = "User Already Exists!",
+                message = Locale.getString(Strings.USER_ALREADY_EXISTS, language),
             )
         }
     }
 
-    suspend fun loginUser(userRequest: UserRequest): BaseResponse<Any> {
+    suspend fun loginUser(userRequest: UserRequest, language: String = "en"): BaseResponse<Any> {
         val user = userDataSource.checkIfUserExists(userRequest.email)
         if (user != null) {
             val isValidPassword = hashingService.verify(
@@ -74,7 +77,7 @@ class UserController(
                 val token = tokenService.generateToken(
                     appConfig.tokenConfig,
                     TokenClaim(
-                        name = "userId",
+                        name = Keys.USER_ID,
                         value = user.userId
                     )
                 )
@@ -83,36 +86,36 @@ class UserController(
                 return SuccessResponse(
                     data = userResponse,
                     statusCode = HttpStatusCode.OK.value,
-                    message = "Success"
+                    message = Locale.getString(Strings.SUCCESS, language)
                 )
             } else {
                 return FailureResponse(
                     statusCode = HttpStatusCode.BadRequest.value,
-                    message = "Invalid Email!",
+                    message = Locale.getString(Strings.INVALID_PASSWORD, language),
                 )
             }
         } else {
             return FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = "Invalid Email!",
+                message = Locale.getString(Strings.INVALID_EMAIL, language),
             )
         }
     }
 
 
-    suspend fun getUserProfile(userId : String) : BaseResponse<Any>{
+    suspend fun getUserProfile(userId: String, language: String = "en"): BaseResponse<Any> {
         val user = userDataSource.getUser(userId)
-        return if(user != null){
+        return if (user != null) {
             val userResponse = user.toUserResponse()
             SuccessResponse(
                 data = userResponse,
                 statusCode = HttpStatusCode.OK.value,
-                message = "Success"
+                message = Locale.getString(Strings.SUCCESS, language)
             )
-        }else{
+        } else {
             FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = "Something went wrong!",
+                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language),
             )
         }
     }

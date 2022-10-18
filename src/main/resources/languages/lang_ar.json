@@ -1,0 +1,9 @@
+{
+  "invalid_token": "تصريح الدخول غير صالح!",
+  "something_went_wrong": "هناك خطأ ما!",
+  "user_created_successfully": "تم إنشاء المستخدم بنجاح!",
+  "user_already_exists": "المستخدم موجود اصلا!",
+  "invalid_email": "بريد إلكتروني خاطئ!",
+  "success": "النجاح",
+  "invalid_password": "رمز مرور خاطئ!"
+}

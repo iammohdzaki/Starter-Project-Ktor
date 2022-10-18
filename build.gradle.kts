@@ -50,6 +50,7 @@ dependencies {
 
     //Serialization
     implementation("io.ktor:ktor-serialization-gson-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
     //Server
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")

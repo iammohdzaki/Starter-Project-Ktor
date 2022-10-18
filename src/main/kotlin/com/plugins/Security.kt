@@ -6,6 +6,8 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.base.FailureResponse
 import com.base.ServerConfig
+import com.locale.Strings
+import com.utils.getLocaleString
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -36,7 +38,7 @@ fun Application.configureSecurity() {
                     HttpStatusCode.Unauthorized,
                     FailureResponse<Any>(
                         statusCode = HttpStatusCode.Unauthorized.value,
-                        message = "Invalid Access Token!",
+                        message = call.getLocaleString(Strings.INVALID_TOKEN),
                     )
                 )
             }
