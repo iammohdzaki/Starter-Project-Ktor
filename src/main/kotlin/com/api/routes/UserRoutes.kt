@@ -53,6 +53,9 @@ fun Route.UserRoutes() {
         post(Endpoints.USER_PROFILE_EDIT_REQUEST) {
             val principal = call.principal<JWTPrincipal>()
             val userId = principal?.getClaim(Keys.USER_ID, String::class)
+            val requestBody = getBodyContent<UserRequest>()
+            val response = userController.editProfile(userId!!,requestBody,call.language())
+            call.respond(response)
         }
     }
 }

@@ -12,4 +12,10 @@ object Endpoints {
     const val USER_LOGIN_REQUEST_WITH_TOKEN = "$USER/loginViaAccessToken"
     const val USER_PROFILE_REQUEST = "$USER/getUserProfile"
     const val USER_PROFILE_EDIT_REQUEST = "$USER/updateUserProfile"
+
+    /**
+    * ======= Configuration ========
+    */
+    const val GET_CONFIG = "$API_VERSION/getConfiguration"
+    const val UPDATE_CONFIG = "$API_VERSION/updateConfiguration"
 }

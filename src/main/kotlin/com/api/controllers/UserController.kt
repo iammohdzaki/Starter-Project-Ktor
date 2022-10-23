@@ -120,6 +120,35 @@ class UserController(
         }
     }
 
+    suspend fun editProfile(userId: String, userRequest: UserRequest, language: String = "en"): BaseResponse<Any> {
+        val user = userDataSource.getUser(userId)
+        return if (user != null) {
+            val updatedUser = user.copy(
+                fullName = userRequest.fullName,
+                email = userRequest.email,
+                phoneNumber = userRequest.phoneNumber,
+                countryCode = userRequest.countryCode
+            )
+            if (userDataSource.updateUser(updatedUser)) {
+                SuccessResponse(
+                    data = updatedUser.toUserResponse(),
+                    statusCode = HttpStatusCode.OK.value,
+                    message = Locale.getString(Strings.SUCCESS, language)
+                )
+            } else {
+                FailureResponse(
+                    statusCode = HttpStatusCode.BadRequest.value,
+                    message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language)
+                )
+            }
+        } else {
+            FailureResponse(
+                statusCode = HttpStatusCode.BadRequest.value,
+                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language)
+            )
+        }
+    }
+
     private suspend fun checkIfUserExist(email: String) =
         userDataSource.checkIfUserExists(email) != null
 }
