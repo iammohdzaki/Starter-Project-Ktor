@@ -2,8 +2,7 @@ name: kotlin_lint
 
 on:
   push:
-    branches-ignore:
-      - "*"
+    branches: [ "main" ]
   pull_request:
     paths:
       - "**/*.kt"
