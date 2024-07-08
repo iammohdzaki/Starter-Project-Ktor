@@ -1,0 +1,194 @@
+openapi: "3.0.3"
+info:
+  title: "Ktor Starter Project"
+  description: "Documentation of all APIs"
+  version: "1.0.0"
+servers:
+  - url: "http://127.0.0.1:8080"
+tags:
+  - name: "User APIs"
+    description: "Operations related to user management"
+  - name: "Config APIs"
+    description: "Operations related to configuration management"
+paths:
+  /:
+    get:
+      description: "Server is Running!"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "Server is Running!"
+  /user/register:
+    post:
+      tags:
+        - "User APIs"
+      description: "Register a new user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequest"
+      responses:
+        "200":
+          description: "User registered successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+  /user/login:
+    post:
+      tags:
+        - "User APIs"
+      description: "User login"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequest"
+      responses:
+        "200":
+          description: "User logged in successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+  /user/profile:
+    get:
+      tags:
+        - "User APIs"
+      security:
+        - bearerAuth: []
+      description: "Get user profile"
+      responses:
+        "200":
+          description: "User profile retrieved successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "400":
+          description: "Invalid token"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailureResponse"
+  /user/profile/edit:
+    post:
+      tags:
+        - "User APIs"
+      security:
+        - bearerAuth: []
+      description: "Edit user profile"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequest"
+      responses:
+        "200":
+          description: "User profile edited successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        "400":
+          description: "Invalid token"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailureResponse"
+  /config:
+    get:
+      tags:
+        - "Config APIs"
+      description: "Get configurations"
+      responses:
+        "200":
+          description: "Configurations retrieved successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configurations"
+    post:
+      tags:
+        - "Config APIs"
+      description: "Update configurations"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Configuration"
+      responses:
+        "200":
+          description: "Configurations updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Configurations"
+components:
+  schemas:
+    UserRequest:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+        email:
+          type: "string"
+    UserResponse:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        username:
+          type: "string"
+        email:
+          type: "string"
+        token:
+          type: "string"
+    UserProfile:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        username:
+          type: "string"
+        email:
+          type: "string"
+    Configurations:
+      type: "object"
+      properties:
+        config1:
+          type: "string"
+        config2:
+          type: "string"
+    Configuration:
+      type: "object"
+      properties:
+        config1:
+          type: "string"
+        config2:
+          type: "string"
+    FailureResponse:
+      type: "object"
+      properties:
+        statusCode:
+          type: "integer"
+        message:
+          type: "string"
+  securitySchemes:
+    bearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"

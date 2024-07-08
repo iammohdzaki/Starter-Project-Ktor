@@ -6,8 +6,8 @@ val kmongoVersion: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.7.20"
-    id("io.ktor.plugin") version "2.1.2"
+    kotlin("jvm") version "2.0.0"
+    id("io.ktor.plugin") version "2.3.12"
 }
 
 group = "com"
@@ -25,6 +25,9 @@ repositories {
 }
 
 dependencies {
+    //Swagger
+    implementation("io.ktor:ktor-server-swagger:$ktorVersion")
+
     //Generator
     implementation("com.github.iammohdzaki:Password-Generator:0.5")
 
@@ -47,6 +50,7 @@ dependencies {
     implementation("io.ktor:ktor-server-locations-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-call-logging-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")
 
     //Serialization
     implementation("io.ktor:ktor-serialization-gson-jvm:$ktorVersion")

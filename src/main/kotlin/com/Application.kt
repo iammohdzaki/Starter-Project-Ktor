@@ -12,6 +12,7 @@ fun Application.module() {
     Locale.init()
     configureKoin()
     setupConfig()
+    configureCors()
     configureSecurity()
     configureMonitoring()
     configureSerialization()
