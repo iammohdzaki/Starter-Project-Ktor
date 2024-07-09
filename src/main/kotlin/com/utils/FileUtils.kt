@@ -13,5 +13,4 @@ object FileUtils {
         val jsonFile = reader.readText()
         return Json.parseToJsonElement(jsonFile)
     }
-
 }

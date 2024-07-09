@@ -5,14 +5,13 @@ import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.eq
 
 class UserDataSourceImpl(
-    private val db: CoroutineDatabase
+    db: CoroutineDatabase
 ) : UserDataSource {
 
     private val userCollection = db.getCollection<User>()
 
     override suspend fun insertUser(user: User) =
         userCollection.insertOne(user).wasAcknowledged()
-
 
     override suspend fun updateUser(user: User) =
         userCollection.updateOneById(user.userId, user).wasAcknowledged()
@@ -28,5 +27,4 @@ class UserDataSourceImpl(
 
     override suspend fun getUsers() =
         userCollection.find().toList()
-
 }

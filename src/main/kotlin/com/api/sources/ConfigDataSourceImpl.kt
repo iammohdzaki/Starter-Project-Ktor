@@ -6,8 +6,8 @@ import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.eq
 
 class ConfigDataSourceImpl(
-    private val db: CoroutineDatabase
-) : ConfigDataSource{
+    db: CoroutineDatabase
+) : ConfigDataSource {
     private val configCollection = db.getCollection<Configuration>(Database.CONFIGURATION_COLLECTION)
 
     override suspend fun getConfiguration(): Configuration {
@@ -15,6 +15,6 @@ class ConfigDataSourceImpl(
     }
 
     override suspend fun updateConfiguration(configuration: Configuration): Boolean {
-        return configCollection.updateOneById(Configuration::_id eq configuration._id,configuration).wasAcknowledged()
+        return configCollection.updateOneById(Configuration::_id eq configuration._id, configuration).wasAcknowledged()
     }
 }

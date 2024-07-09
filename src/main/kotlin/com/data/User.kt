@@ -13,8 +13,8 @@ data class User(
     val countryCode: String,
     val createdOn: Long = System.currentTimeMillis(),
     val password: String,
-    val salt: String,
-){
+    val salt: String
+) {
     fun toUserResponse() =
         UserResponse(
             userId = userId,
@@ -22,6 +22,6 @@ data class User(
             email = email,
             phoneNumber = phoneNumber,
             countryCode = countryCode,
-            createdOn = createdOn,
+            createdOn = createdOn
         )
 }

@@ -6,9 +6,9 @@ import com.base.FailureResponse
 import com.base.SuccessResponse
 import com.locale.Locale
 import com.locale.Strings
-import io.ktor.http.*
 import com.data.Configuration
 import com.utils.Database
+import io.ktor.http.HttpStatusCode
 
 class ConfigController(
     private val configDataSource: ConfigDataSource
@@ -36,7 +36,7 @@ class ConfigController(
         } else {
             FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language),
+                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language)
             )
         }
     }

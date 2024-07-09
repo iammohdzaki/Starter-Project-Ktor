@@ -14,14 +14,12 @@ object Locale {
             }
     }
 
-    fun getString(key: String, code: String = Language.ENGLISH.code) =
-        locales[code]?.get(key) ?: ""
-    
+    fun getString(key: String, code: String = Language.ENGLISH.code) = locales[code]?.get(key) ?: ""
+
     private fun getLocaleByCode(code: String): HashMap<String, String> {
         val locale = FileUtils.readJsonFile(code)
         return locale.jsonObject.toMap().mapValues {
             it.value.toString().replace("\"", "")
         } as HashMap<String, String>
     }
-
 }

@@ -4,8 +4,7 @@ import com.data.Configuration
 
 interface ConfigDataSource {
 
-    suspend fun getConfiguration() : Configuration
+    suspend fun getConfiguration(): Configuration
 
-    suspend fun updateConfiguration(configuration: Configuration) : Boolean
-
+    suspend fun updateConfiguration(configuration: Configuration): Boolean
 }

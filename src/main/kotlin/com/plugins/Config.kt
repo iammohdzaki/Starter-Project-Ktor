@@ -2,7 +2,7 @@ package com.plugins
 
 import com.base.ServerConfig
 import com.base.jwt.TokenConfig
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
 import org.koin.ktor.ext.inject
 
 fun Application.setupConfig() {

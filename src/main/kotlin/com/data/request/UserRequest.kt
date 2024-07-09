@@ -6,5 +6,5 @@ data class UserRequest(
     val phoneNumber: String = "",
     val countryCode: String = "",
     val password: String,
-    val salt: String = "",
+    val salt: String = ""
 )

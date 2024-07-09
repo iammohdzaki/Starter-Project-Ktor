@@ -11,7 +11,7 @@ val databaseModule = module {
             KMongo.createClient()
                 .coroutine
                 .getDatabase(Database.DATABASE_NAME)
-        }else{
+        } else {
             KMongo.createClient(connectionString = System.getenv("DB_URL"))
                 .coroutine
                 .getDatabase(Database.DATABASE_NAME)

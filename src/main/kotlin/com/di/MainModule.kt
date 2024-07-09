@@ -16,7 +16,7 @@ val mainModule = module {
         HashingServiceImpl()
     }
 
-    single{
+    single {
         ServerConfig()
     }
 }

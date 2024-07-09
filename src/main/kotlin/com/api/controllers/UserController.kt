@@ -14,7 +14,7 @@ import com.data.request.UserRequest
 import com.locale.Locale
 import com.locale.Strings
 import com.utils.Keys
-import io.ktor.http.*
+import io.ktor.http.HttpStatusCode
 
 class UserController(
     private val userDataSource: UserDataSource,
@@ -52,13 +52,13 @@ class UserController(
             } else {
                 FailureResponse(
                     statusCode = HttpStatusCode.BadRequest.value,
-                    message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language),
+                    message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language)
                 )
             }
         } else {
             return FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = Locale.getString(Strings.USER_ALREADY_EXISTS, language),
+                message = Locale.getString(Strings.USER_ALREADY_EXISTS, language)
             )
         }
     }
@@ -91,17 +91,16 @@ class UserController(
             } else {
                 return FailureResponse(
                     statusCode = HttpStatusCode.BadRequest.value,
-                    message = Locale.getString(Strings.INVALID_PASSWORD, language),
+                    message = Locale.getString(Strings.INVALID_PASSWORD, language)
                 )
             }
         } else {
             return FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = Locale.getString(Strings.INVALID_EMAIL, language),
+                message = Locale.getString(Strings.INVALID_EMAIL, language)
             )
         }
     }
-
 
     suspend fun getUserProfile(userId: String, language: String = "en"): BaseResponse<Any> {
         val user = userDataSource.getUser(userId)
@@ -115,7 +114,7 @@ class UserController(
         } else {
             FailureResponse(
                 statusCode = HttpStatusCode.BadRequest.value,
-                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language),
+                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language)
             )
         }
     }
