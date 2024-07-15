@@ -14,7 +14,6 @@ group = "com"
 version = "0.0.1"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
-
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
@@ -24,12 +23,16 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 dependencies {
     //Swagger
     implementation("io.ktor:ktor-server-swagger:$ktorVersion")
 
     //Generator
-    implementation("com.github.iammohdzaki:Password-Generator:0.5")
+    implementation("com.github.iammohdzaki:Password-Generator:0.6")
 
     // Mongo Database
     implementation("org.litote.kmongo:kmongo:$kmongoVersion")
@@ -63,6 +66,10 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
     //Testing
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("io.insert-koin:koin-test:$koinVersion")
 }

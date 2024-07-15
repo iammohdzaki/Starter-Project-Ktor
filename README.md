@@ -2,10 +2,8 @@
 # Starter Project Ktor
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0-blue.svg)](https://kotlinlang.org)
-[![Ktor](https://img.shields.io/badge/Ktor-2.0.0-blueviolet.svg)](https://ktor.io)
-[![MongoDB](https://img.shields.io/badge/MongoDB-5.0-green.svg)](https://www.mongodb.com)
-[![Koin](https://img.shields.io/badge/Koin-3.1.2-lightgrey.svg)](https://insert-koin.io)
-[![Swagger](https://img.shields.io/badge/Swagger-3.0.0-brightgreen.svg)](https://swagger.io)
+[![codecov](https://codecov.io/github/iammohdzaki/Starter-Project-Ktor/graph/badge.svg?token=J779Y2CYPA)](https://codecov.io/github/iammohdzaki/Starter-Project-Ktor)
+[![kotlin_lint](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/kotlin_lint.yml/badge.svg)](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/kotlin_lint.yml)
 [![License](https://img.shields.io/github/license/iammohdzaki/Starter-Project-Ktor)](https://github.com/iammohdzaki/Starter-Project-Ktor/blob/main/LICENSE)
 
 ## Overview
@@ -69,14 +67,6 @@ mongodb {
 
 Swagger is used for API documentation. Once the application is running, you can access the Swagger UI at `http://localhost:8080/docs`.
 
-## Dependency Injection with Koin
-
-This project uses Koin for dependency injection. Modules are defined in the `di` package and loaded in the `Application.kt` file.
-
-## Serialization
-
-Kotlin Serialization is used for converting Kotlin objects to JSON and vice versa. Ensure your data classes are annotated with `@Serializable`.
-
 ## Project Structure
 
 ```
@@ -90,12 +80,16 @@ Starter-Project-Ktor
 └── src
     ├── main
     │   ├── kotlin
-    │   │   ├── com.example
-    │   │   │   ├── di
-    │   │   │   ├── models
-    │   │   │   ├── routes
+    │   │   ├── di
+    │   │   ├── models
+    │   │   ├── routes
     │   │   │   └── services
     │   ├── resources
+    │   │   ├── languages
+    │   │   │   ├── lang_ar.json
+    │   │   │   └── lang_en.json
+    │   │   ├── openapi
+    │   │   │   └── documentation.yml
     │   │   ├── application.conf
     │   │   └── logback.xml
     └── test

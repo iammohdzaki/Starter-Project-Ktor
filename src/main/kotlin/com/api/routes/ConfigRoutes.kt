@@ -21,7 +21,6 @@ fun Route.ConfigRoutes() {
         call.respond(response)
     }
 
-    // Not Working Will Check Later
     post(Endpoints.UPDATE_CONFIG) {
         val requestBody = getBodyContent<Configuration>()
         val response = configController.updateConfiguration(requestBody, call.language())

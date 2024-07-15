@@ -1,4 +1,4 @@
-name: kotlin_lint
+name: "Kotlin Lint Checks"
 
 on:
   push:
