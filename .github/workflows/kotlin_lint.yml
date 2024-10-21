@@ -1,4 +1,4 @@
-name: "Kotlin Lint Checks"
+name: "🔧 Kotlin Lint Checks"
 
 on:
   push:

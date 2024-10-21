@@ -10,6 +10,6 @@ enum class Language(
     ;
 
     companion object {
-        fun getLanguages() = values().toList()
+        fun getLanguages() = entries
     }
 }

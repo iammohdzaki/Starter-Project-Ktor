@@ -2,7 +2,7 @@
 # Starter Project Ktor
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0-blue.svg)](https://kotlinlang.org)
-[![codecov](https://codecov.io/github/iammohdzaki/Starter-Project-Ktor/graph/badge.svg?token=J779Y2CYPA)](https://codecov.io/github/iammohdzaki/Starter-Project-Ktor)
+[![Code Scanning](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/code_scan.yml/badge.svg)](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/code_scan.yml)
 [![kotlin_lint](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/kotlin_lint.yml/badge.svg)](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/kotlin_lint.yml)
 [![License](https://img.shields.io/github/license/iammohdzaki/Starter-Project-Ktor)](https://github.com/iammohdzaki/Starter-Project-Ktor/blob/main/LICENSE)
 

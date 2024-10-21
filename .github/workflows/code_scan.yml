@@ -1,4 +1,4 @@
-name: "Code Scanning"
+name: "🕵️‍♂️ Code Scanning"
 
 on: [push, pull_request]
 
@@ -6,14 +6,13 @@ env:
   GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx6g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
 
 jobs:
-  build:
+  code_scanning:
     runs-on: 'ubuntu-latest'
-
     env:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -24,7 +23,18 @@ jobs:
           distribution: 'zulu'
           java-version: 19
 
-      - name: Build
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: java
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+      - name: Build with Gradle
         uses: gradle/gradle-build-action@v3
         with:
           arguments: build --full-stacktrace
@@ -33,11 +43,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: 'reports-${{ matrix.os }}'
+          name: 'reports'
           path: '**/build/reports/**'
-
-      - name: Upload Code Scanning code analysis report
-        if: always()
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'build/reports/detekt/main.sarif'
