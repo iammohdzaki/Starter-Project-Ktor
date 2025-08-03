@@ -44,7 +44,7 @@ dependencies {
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
 
     //Commons Codec - Password Hash
-    implementation("commons-codec:commons-codec:1.15")
+    implementation("commons-codec:commons-codec:1.19.0")
 
     //Core Server
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
