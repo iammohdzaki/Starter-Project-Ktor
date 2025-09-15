@@ -7,7 +7,7 @@ val kmongoVersion: String by project
 plugins {
     application
     kotlin("jvm") version "2.0.0"
-    id("io.ktor.plugin") version "2.3.12"
+    id("io.ktor.plugin") version "3.3.0"
 }
 
 group = "com"
