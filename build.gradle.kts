@@ -80,6 +80,10 @@ dependencies {
     // Koog
     implementation("ai.koog:koog-agents:0.4.1")
 
+    // Monitoring
+    implementation("io.ktor:ktor-server-metrics-micrometer:3.0.0") // Ktor plugin
+    implementation("io.micrometer:micrometer-registry-prometheus:1.12.5") // Prometheus support
+
     //Testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")

@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "ktor-app"
+    metrics_path: "/metrics"
+    scheme: "http"
+    static_configs:
+      - targets: ["host.docker.internal:8080"]
+
+    basic_auth:
+      username: "admin"
+      password: "admin"
