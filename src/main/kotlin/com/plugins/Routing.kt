@@ -3,6 +3,7 @@ package com.plugins
 import com.api.routes.ConfigRoutes
 import com.api.routes.ServerRoutes
 import com.api.routes.UserRoutes
+import com.monitoring.monitoringDashboardModule
 import io.ktor.server.application.Application
 import io.ktor.server.plugins.swagger.swaggerUI
 import io.ktor.server.routing.routing
@@ -13,5 +14,6 @@ fun Application.configureRouting() {
         swaggerUI(path = "docs", swaggerFile = "openapi/documentation.yaml")
         UserRoutes()
         ConfigRoutes()
+        monitoringDashboardModule()
     }
 }

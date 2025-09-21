@@ -5,7 +5,8 @@
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.ApplicationKt" />
     <module name="Starter-Project-Ktor.main" />
-    <shortenClasspath name="NONE" />
+    <shortenClasspath name="ARGS_FILE" />
+    <option name="VM_PARAMETERS" value="-Dconfig.file=src/main/resources/application-dev.conf" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
