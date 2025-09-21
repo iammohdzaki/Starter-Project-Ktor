@@ -11,6 +11,8 @@ import com.locale.Strings
 import com.utils.getLocaleString
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
+import io.ktor.server.auth.UserIdPrincipal
+import io.ktor.server.auth.basic
 import io.ktor.server.response.respond
 import org.koin.ktor.ext.inject
 
@@ -42,6 +44,18 @@ fun Application.configureSecurity() {
                         message = call.getLocaleString(Strings.INVALID_TOKEN)
                     )
                 )
+            }
+        }
+
+        basic("metricsAuth") {
+            realm = this@configureSecurity.environment.config.property("monitoring.realm").getString()
+            validate { credentials ->
+                if (
+                    credentials.name == System.getenv("METRICS_USER") &&
+                    credentials.password == System.getenv("METRICS_PASS")
+                ) {
+                    UserIdPrincipal(credentials.name)
+                } else null
             }
         }
     }

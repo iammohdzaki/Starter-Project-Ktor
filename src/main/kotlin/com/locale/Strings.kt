@@ -7,5 +7,7 @@ object Strings {
     const val USER_ALREADY_EXISTS = "user_already_exists"
     const val INVALID_EMAIL = "invalid_email"
     const val SUCCESS = "success"
-    const val INVALID_PASSWORD = "Invalid Password!"
+    const val INVALID_PASSWORD = "invalid_password"
+    const val PARAMETER_MISSING = "parameter_missing"
+
 }
