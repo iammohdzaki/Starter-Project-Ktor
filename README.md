@@ -2,7 +2,6 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1-blue.svg)](https://kotlinlang.org)
 [![Ktor](https://img.shields.io/badge/Ktor-3.x-orange.svg)](https://ktor.io)
-[![Code Scanning](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/code_scan.yml/badge.svg)](https://github.com/iammohdzaki/Starter-Project-Ktor/actions/workflows/code_scan.yml)
 [![License](https://img.shields.io/github/license/iammohdzaki/Starter-Project-Ktor)](https://github.com/iammohdzaki/Starter-Project-Ktor/blob/main/LICENSE)
 
 > A production-ready Ktor starter template with monitoring, LLM integration, and modern architecture patterns.
@@ -123,7 +122,6 @@ OPENROUTER_MODEL="GPT_OSS_20B"
 
 # Or multiple models for load balancing
 OPENROUTER_MODELS="anthropic/claude-3-haiku,openai/gpt-4o-mini,meta-llama/llama-3.1-8b"
-MODEL_WEIGHTS="3,2,1"
 ```
 
 ### 3️⃣ Build & Run
@@ -531,8 +529,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 - 📖 **Documentation**: Check this README and inline code comments
 - 🐛 **Issues**: Report bugs via [GitHub Issues](https://github.com/iammohdzaki/Starter-Project-Ktor/issues)
-- 💬 **Discussions**: Join [GitHub Discussions](https://github.com/iammohdzaki/Starter-Project-Ktor/discussions)
-- 📧 **Contact**: Reach out to the maintainer
+- 📧 **Contact**: mohdzaki407@gmail.com
 
 ---
 
