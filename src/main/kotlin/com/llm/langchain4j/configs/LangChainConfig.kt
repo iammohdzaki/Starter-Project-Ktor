@@ -5,6 +5,6 @@ import dev.langchain4j.model.chat.ChatModel
 
 interface LangChainConfig {
     val provider: ModelProvider
-
+    val modelName : String
     fun build(): ChatModel
 }

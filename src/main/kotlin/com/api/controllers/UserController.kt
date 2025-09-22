@@ -11,6 +11,7 @@ import com.base.jwt.TokenClaim
 import com.base.jwt.service.TokenService
 import com.data.User
 import com.data.request.UserRequest
+import com.llm.LLMClient
 import com.locale.Locale
 import com.locale.Strings
 import com.utils.Keys
@@ -20,8 +21,26 @@ class UserController(
     private val userDataSource: UserDataSource,
     private val hashingService: HashingService,
     private val tokenService: TokenService,
-    private val appConfig: ServerConfig
+    private val appConfig: ServerConfig,
+    private val llmClient: LLMClient
 ) {
+
+    suspend fun chatLLM(prompt: String, language: String = "en"): BaseResponse<Any> {
+        try {
+            val response = llmClient.generateResponse(prompt)
+            return SuccessResponse(
+                data = response,
+                statusCode = HttpStatusCode.OK.value,
+                message = Locale.getString(Strings.SUCCESS, language)
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return FailureResponse(
+                statusCode = HttpStatusCode.BadRequest.value,
+                message = Locale.getString(Strings.SOMETHING_WENT_WRONG, language),
+            )
+        }
+    }
 
     suspend fun registerUser(userRequest: UserRequest, language: String = "en"): BaseResponse<Any> {
         if (!checkIfUserExist(userRequest.email)) {

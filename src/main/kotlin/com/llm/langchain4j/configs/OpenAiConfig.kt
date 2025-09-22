@@ -12,6 +12,7 @@ data class OpenAiConfig(
     val maxTokens: Int = 1024,
 ) : LangChainConfig {
     override val provider = ModelProvider.OPENAI
+    override val modelName : String = model.modelName
 
     override fun build(): ChatModel =
         OpenAiChatModel

@@ -10,6 +10,7 @@ data class OpenRouterConfig(
     val model: OpenRouterModel,
 ) : LangChainConfig {
     override val provider = ModelProvider.OPEN_ROUTER
+    override val modelName : String = model.modelName
 
     override fun build(): ChatModel =
         OpenAiChatModel.builder()

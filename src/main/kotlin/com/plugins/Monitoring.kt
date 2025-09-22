@@ -1,14 +1,13 @@
 package com.plugins
 
+import com.metrics.MetricsService
+import com.utils.normalizePath
 import io.ktor.http.ContentType
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCallPipeline
 import io.ktor.server.application.call
 import io.ktor.server.application.install
-import io.ktor.server.auth.Authentication
-import io.ktor.server.auth.UserIdPrincipal
 import io.ktor.server.auth.authenticate
-import io.ktor.server.auth.basic
 import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.plugins.calllogging.CallLogging
 import io.ktor.server.request.httpMethod
@@ -16,11 +15,11 @@ import io.ktor.server.request.path
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
-import io.micrometer.core.instrument.Tag
 import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
+import io.micrometer.core.instrument.binder.logging.LogbackMetrics
 import io.micrometer.core.instrument.binder.system.ProcessorMetrics
 import io.micrometer.core.instrument.binder.system.UptimeMetrics
 import io.micrometer.prometheus.PrometheusConfig
@@ -33,35 +32,43 @@ fun Application.configureMonitoring() {
         filter { call -> call.request.path().startsWith("/") }
     }
 
-    val prometheusRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+    val meterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
     install(MicrometerMetrics) {
-        registry = prometheusRegistry
+        registry = meterRegistry
         meterBinders = listOf(
             ClassLoaderMetrics(),
             JvmMemoryMetrics(),
             JvmGcMetrics(),
             JvmThreadMetrics(),
             ProcessorMetrics(),
-            UptimeMetrics()
+            UptimeMetrics(),
+            LogbackMetrics()
         )
     }
 
+    // store registry globally for helper use
+    MetricsService.init(meterRegistry)
+
     routing {
         authenticate("metricsAuth") {
-            intercept(ApplicationCallPipeline.Monitoring) {
-                // Count requests per method + path
-                val path = call.request.path()
-                if (!path.startsWith("/internal")) {
-                    val tags = listOf(
-                        Tag.of("method", call.request.httpMethod.value),
-                        Tag.of("uri", path)
-                    )
-                    prometheusRegistry.counter("http_server_requests_total", tags).increment()
-                }
-            }
             get("/metrics") {
-                call.respondText(prometheusRegistry.scrape(), ContentType.Text.Plain)
+                call.respondText(meterRegistry.scrape(), ContentType.Text.Plain)
             }
+        }
+    }
+
+    intercept(ApplicationCallPipeline.Monitoring) {
+        val start = System.nanoTime()
+        try {
+            proceed()
+        } finally {
+            val end = System.nanoTime()
+            val durationMs = (end - start) / 1_000_000
+            val rawPath = call.request.path()
+            val normalized = normalizePath(rawPath)
+            val method = call.request.httpMethod.value
+            val status = call.response.status()?.value ?: 0
+            MetricsService.recordHttpRequest(normalized, method, status, durationMs)
         }
     }
 }

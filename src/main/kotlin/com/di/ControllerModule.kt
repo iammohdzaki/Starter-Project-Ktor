@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val controllerModule = module {
 
     single {
-        UserController(get(), get(), get(), get())
+        UserController(get(), get(), get(), get(),get())
     }
 
     single {

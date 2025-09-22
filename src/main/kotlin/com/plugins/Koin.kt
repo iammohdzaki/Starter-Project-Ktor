@@ -1,5 +1,6 @@
 package com.plugins
 
+import com.di.LLMModule
 import com.di.controllerModule
 import com.di.dataSourceModule
 import com.di.databaseModule
@@ -15,7 +16,8 @@ fun Application.configureKoin() {
             mainModule,
             controllerModule,
             dataSourceModule,
-            databaseModule
+            databaseModule,
+            LLMModule
         )
     }
 }

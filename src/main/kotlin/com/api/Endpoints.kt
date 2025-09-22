@@ -12,6 +12,7 @@ object Endpoints {
     const val USER_LOGIN_REQUEST_WITH_TOKEN = "$USER/loginViaAccessToken"
     const val USER_PROFILE_REQUEST = "$USER/getUserProfile"
     const val USER_PROFILE_EDIT_REQUEST = "$USER/updateUserProfile"
+    const val CHAT_LLM = "$USER/chatLLM"
 
     /**
     * ======= Configuration ========

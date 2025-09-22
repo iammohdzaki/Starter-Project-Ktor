@@ -10,6 +10,7 @@ data class GeminiConfig(
     val model: GeminiModel,
 ) : LangChainConfig {
     override val provider = ModelProvider.GEMINI
+    override val modelName : String = model.modelName
 
     override fun build(): ChatModel =
         GoogleAiGeminiChatModel

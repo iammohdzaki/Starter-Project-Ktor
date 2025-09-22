@@ -1,6 +1,7 @@
 package com.api.routes
 
 import com.api.Endpoints
+import com.api.Endpoints.CHAT_LLM
 import com.api.controllers.UserController
 import com.base.FailureResponse
 import com.data.request.UserRequest
@@ -9,8 +10,8 @@ import com.utils.Keys
 import com.utils.getBodyContent
 import com.utils.getLocaleString
 import com.utils.language
+import com.utils.missingParameterReply
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.jwt.JWTPrincipal
 import io.ktor.server.auth.principal
@@ -33,6 +34,12 @@ fun Route.UserRoutes() {
     post(Endpoints.USER_LOGIN_REQUEST) {
         val requestBody = getBodyContent<UserRequest>()
         val response = userController.loginUser(requestBody, call.language())
+        call.respond(response)
+    }
+
+    get(CHAT_LLM) {
+        val prompt = call.request.queryParameters["prompt"] ?: return@get missingParameterReply("prompt")
+        val response = userController.chatLLM(prompt, call.language())
         call.respond(response)
     }
 
