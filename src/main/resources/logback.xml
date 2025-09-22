@@ -1,12 +1,47 @@
 <configuration>
+
+    <!-- Console Appender with Clear and Searchable Pattern -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <!-- Format: Timestamp | Log Level | Thread | Logger | Message -->
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | [%thread] | %logger{36} | %msg%n%ex{full}
+            </pattern>
         </encoder>
     </appender>
-    <root level="trace">
+
+    <!-- File Appender for Persistent Logs -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Daily log files, keep 30 days -->
+            <fileNamePattern>logs/application-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | [%thread] | %logger{36} | %msg%n%ex{full}
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger -->
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
     </root>
-    <logger name="org.eclipse.jetty" level="INFO"/>
-    <logger name="io.netty" level="INFO"/>
+
+    <!-- Adjust noisy frameworks -->
+    <logger name="org.eclipse.jetty" level="WARN"/>
+    <logger name="io.netty" level="WARN"/>
+    <logger name="org.mongodb.driver" level="INFO"/> <!-- MongoDB driver logs -->
+    <logger name="io.ktor" level="INFO"/> <!-- Ktor internals -->
+    <logger name="com.theokanning.openai" level="INFO"/> <!-- OpenAI client logs -->
+    <logger name="dev.langchain4j" level="DEBUG"/> <!-- LangChain4j requests/responses -->
+
+    <!-- Business-specific categories -->
+    <logger name="Application" level="DEBUG"/> <!-- your app logs -->
+    <logger name="Database" level="DEBUG"/> <!-- MongoDB queries / DB access -->
+    <logger name="LLM" level="DEBUG"/> <!-- LLM calls for easy tracking -->
+
 </configuration>
