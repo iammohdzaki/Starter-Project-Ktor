@@ -70,7 +70,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
     // Langchain4j core
-    implementation("dev.langchain4j:langchain4j:0.30.0")
+    implementation("dev.langchain4j:langchain4j:1.5.0")
     implementation("dev.langchain4j:langchain4j-kotlin:1.2.0-beta8")
 
     // LLM Models - LangChain4j
