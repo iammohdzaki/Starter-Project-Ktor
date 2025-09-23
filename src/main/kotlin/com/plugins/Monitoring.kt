@@ -59,16 +59,24 @@ fun Application.configureMonitoring() {
 
     intercept(ApplicationCallPipeline.Monitoring) {
         val start = System.nanoTime()
+        var statusCode = 0
+
         try {
-            proceed()
+            proceed() // run the call
+            // normal path: status may be set by handlers
+            statusCode = call.response.status()?.value ?: 200
+        } catch (cause: Throwable) {
+            // an unhandled exception reached here: treat as 500
+            statusCode = 500
+            throw cause
         } finally {
-            val end = System.nanoTime()
-            val durationMs = (end - start) / 1_000_000
+            val durationMs = (System.nanoTime() - start) / 1_000_000
             val rawPath = call.request.path()
             val normalized = normalizePath(rawPath)
             val method = call.request.httpMethod.value
-            val status = call.response.status()?.value ?: 0
-            MetricsService.recordHttpRequest(normalized, method, status, durationMs)
+
+            // record using your MetricsService
+            MetricsService.recordHttpRequest(normalized, method, statusCode, durationMs)
         }
     }
 }
