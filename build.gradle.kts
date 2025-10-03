@@ -71,11 +71,11 @@ dependencies {
 
     // Langchain4j core
     implementation("dev.langchain4j:langchain4j:0.30.0")
-    implementation("dev.langchain4j:langchain4j-kotlin:1.2.0-beta8")
+    implementation("dev.langchain4j:langchain4j-kotlin:1.7.1-beta8")
 
     // LLM Models - LangChain4j
-    implementation("dev.langchain4j:langchain4j-google-ai-gemini:1.2.0")
-    implementation("dev.langchain4j:langchain4j-open-ai:1.2.0")
+    implementation("dev.langchain4j:langchain4j-google-ai-gemini:1.7.1")
+    implementation("dev.langchain4j:langchain4j-open-ai:1.7.1")
 
     // Koog
     implementation("ai.koog:koog-agents:0.4.1")
