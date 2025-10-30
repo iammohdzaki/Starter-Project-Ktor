@@ -78,7 +78,7 @@ dependencies {
     implementation("dev.langchain4j:langchain4j-open-ai:1.2.0")
 
     // Koog
-    implementation("ai.koog:koog-agents:0.4.1")
+    implementation("ai.koog:koog-agents:0.5.2")
 
     // Monitoring
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktorVersion") // Ktor plugin
